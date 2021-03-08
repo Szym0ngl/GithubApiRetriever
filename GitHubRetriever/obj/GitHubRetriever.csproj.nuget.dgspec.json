@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[2.7.82, )"
             },
+            "Microsoft.Azure.Cosmos": {
+              "target": "Package",
+              "version": "[3.17.0, )"
+            },
             "Microsoft.Azure.Devices": {
               "target": "Package",
               "version": "[1.27.3, )"

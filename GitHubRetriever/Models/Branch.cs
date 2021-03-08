@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GitHubRetriever.Models
+﻿namespace GitHubRetriever.Models
 {
     public class Branch
     {

@@ -64,3 +64,15 @@ C:\repos\GithubApiRetriever\GitHubRetriever\obj\Debug\netcoreapp3.1\GitHubRetrie
 C:\repos\GithubApiRetriever\GitHubRetriever\obj\Debug\netcoreapp3.1\GitHubRetriever.genruntimeconfig.cache
 C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\appSettings.json
 C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\GitHubApiService.cs
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.ServiceInterop.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Cosmos.CRTCompat.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Azure.Core.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.Client.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.Core.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.Direct.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Cosmos.CRTCompat.dll
+C:\repos\GithubApiRetriever\GitHubRetriever\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Azure.Cosmos.ServiceInterop.dll
