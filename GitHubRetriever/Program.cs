@@ -61,7 +61,6 @@ namespace GitHubRetriever
         private async Task CreateDatabaseAsync(string databaseId)
         {
             database = await cosmosClient.CreateDatabaseIfNotExistsAsync(databaseId);
-            Console.WriteLine("Created Database: {0}\n", database.Id);
         }
 
         private async Task CreateContainerAsync(string containerId)
@@ -73,7 +72,6 @@ namespace GitHubRetriever
                 .Path("/Sha")
                 .Attach()
                 .CreateIfNotExistsAsync();
-            Console.WriteLine("Created Container: {0}\n", container.Id);
         }
     }
 }
