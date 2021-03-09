@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Polly;
 
-namespace GitHubRetriever
+namespace GitHubRetriever.Commands
 {
     public class CommitsDownloadCommand
     {
@@ -22,15 +22,26 @@ namespace GitHubRetriever
 
         public List<RepositoryData> Execute(string userName, string repository)
         {
-            var content = CreateGetRequest($"https://api.github.com/repos/{userName}/{repository}/branches");
-            var branches = JsonConvert.DeserializeObject<List<Branch>>(content);
+            var httpResponseMessage =
+                CreateGetRequest($"https://api.github.com/repos/{userName}/{repository}/branches");
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"User {userName} or repository {repository} not found");
+                throw new Exception("Get request failed");
+            }
+
+            var branches =
+                JsonConvert.DeserializeObject<List<Branch>>(httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter()
+                    .GetResult());
 
             var repositoryData = new List<RepositoryData>();
 
             foreach (var branch in branches)
             {
-                content = CreateGetRequest(
-                    $"https://api.github.com/repos/{userName}/{repository}/commits/{branch.Commit.Sha}");
+                var content = CreateGetRequest(
+                        $"https://api.github.com/repos/{userName}/{repository}/commits/{branch.Commit.Sha}").Content
+                    .ReadAsStringAsync().GetAwaiter().GetResult();
                 var message = JObject.Parse(content)["commit"]?["message"];
                 var commiter = JObject.Parse(content)["commit"]?["committer"]?.ToObject<Commiter>();
                 repositoryData.Add(new RepositoryData(userName, repository, branch.Commit.Sha, message?.ToString(),
@@ -40,7 +51,7 @@ namespace GitHubRetriever
             return repositoryData;
         }
 
-        private string CreateGetRequest(string requestUri)
+        private HttpResponseMessage CreateGetRequest(string requestUri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             request.Headers.Add("Accept", ApplicationJson);
@@ -51,13 +62,9 @@ namespace GitHubRetriever
                 .WaitAndRetry(MaxRetryAttempts, i => pauseBetweenFailures);
 
             var response = new HttpResponseMessage();
-            retryPolicy.Execute(() =>
-            {
-                response = httpClient.SendAsync(request).Result;
-                response.EnsureSuccessStatusCode();
-            });
+            retryPolicy.Execute(() => { response = httpClient.SendAsync(request).Result; });
 
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return response;
         }
     }
 }

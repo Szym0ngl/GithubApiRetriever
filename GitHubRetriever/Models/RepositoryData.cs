@@ -19,7 +19,7 @@ namespace GitHubRetriever.Models
         public string Sha { get; set; }
         public string Message { get; set; }
         public Commiter Commiter { get; set; }
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; }
+
+        [JsonProperty(PropertyName = "id")] public string Id { get; }
     }
 }

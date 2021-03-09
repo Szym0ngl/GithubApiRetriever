@@ -2,20 +2,15 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac;
-using GitHubRetriever;
+using GitHubRetriever.Commands;
 using Microsoft.Azure.Cosmos;
 
-namespace ABB.Ability.IoTHub.Receiver
+namespace GitHubRetriever
 {
     internal class Program
     {
-        // The container we will create.
         private static Container container;
-
-        // The Cosmos client instance
         private CosmosClient cosmosClient;
-
-        // The database we will create
         private Database database;
 
         private static IContainer CompositionRoot()

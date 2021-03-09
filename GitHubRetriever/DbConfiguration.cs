@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ABB.Ability.IoTHub.Receiver
+namespace GitHubRetriever
 {
     public class DbConfiguration
     {
