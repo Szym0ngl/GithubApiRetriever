@@ -37,7 +37,7 @@ namespace GitHubRetriever.Commands
 
             var repositoryData = new List<RepositoryData>();
 
-            foreach (var branch in branches)
+            foreach (var branch in branches) //TODO this should be changed to use recurrency
             {
                 var content = CreateGetRequest(
                         $"https://api.github.com/repos/{userName}/{repository}/commits/{branch.Commit.Sha}").Content
@@ -46,6 +46,25 @@ namespace GitHubRetriever.Commands
                 var commiter = JObject.Parse(content)["commit"]?["committer"]?.ToObject<Commiter>();
                 repositoryData.Add(new RepositoryData(userName, repository, branch.Commit.Sha, message?.ToString(),
                     commiter));
+                var isParentPresent = true;
+                while (isParentPresent)
+                {
+                    var parentSha = JObject.Parse(content)["parents"]?.First?["sha"]; //TODO should do here recurrent function to iterate all parents
+                    if (parentSha == null)
+                    {
+                        isParentPresent = false;
+                    }
+                    else
+                    {
+                        content = CreateGetRequest(
+                                $"https://api.github.com/repos/{userName}/{repository}/commits/{parentSha}").Content
+                            .ReadAsStringAsync().GetAwaiter().GetResult();
+                        message = JObject.Parse(content)["commit"]?["message"];
+                        commiter = JObject.Parse(content)["commit"]?["committer"]?.ToObject<Commiter>();
+                        repositoryData.Add(new RepositoryData(userName, repository, branch.Commit.Sha, message?.ToString(),
+                            commiter));
+                    }
+                }
             }
 
             return repositoryData;
