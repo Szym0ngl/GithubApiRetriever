@@ -31,17 +31,11 @@ namespace GitHubRetriever
                 Console.WriteLine($"[{data.Repository}]/[{data.Sha}]: {data.Message}[{data.Commiter}]");
                 try
                 {
-                    var response =
-                        await container.ReadItemAsync<RepositoryData>(data.Id,
-                            new PartitionKey(data.UserName));
-                    Console.WriteLine($"Item in database with id: {response.Resource.Id} already exists\n");
+                    await container.ReadItemAsync<RepositoryData>(data.Id, new PartitionKey(data.UserName));
                 }
                 catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
                 {
-                    var response =
-                        await container.CreateItemAsync(data,
-                            new PartitionKey(data.UserName));
-                    Console.WriteLine($"Created item in database with id: {response.Resource.Id}\n");
+                    await container.CreateItemAsync(data, new PartitionKey(data.UserName));
                 }
             }
         }
